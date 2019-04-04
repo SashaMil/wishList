@@ -1,0 +1,57 @@
+.tabCreator {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    margin-top: 1rem;
+    width: 40%;
+    height: 20vh;
+    text-align: center;
+    background-color: white;
+    border: 3px solid #000;
+}
+
+.tabContainer {
+    display: block;
+    padding-top: 2rem;
+    padding-right: 1rem;
+}
+
+.tabInput::placeholder {
+    font-family: 'Saira Extra Condensed', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    color: black;
+}
+
+.tabSubmit {
+    margin-top: 2rem;
+    width: 20%;
+    text-align: center;
+    background-color: #4CAF50;
+    color: white;
+    padding: .8rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 1rem;
+}
+
+.tabCancel {
+    width: 20%;
+    background-color: red;
+    color: white;
+    padding: .8rem 1.2rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.tabInput {
+    margin-top: 2rem;
+    width: 50%;
+    display: inline-block;
+    border: 2px solid #000;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 1rem;
+}

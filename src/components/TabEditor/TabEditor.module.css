@@ -1,0 +1,11 @@
+.tabEditor {
+    position: relative;
+    z-index: 1;
+    margin: auto;
+    margin-top: 1rem;
+    width: 40%;
+    height: 20vh;
+    text-align: center;
+    background-color: white;
+    border: 3px solid #000;
+}

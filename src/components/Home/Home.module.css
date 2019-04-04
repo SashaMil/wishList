@@ -1,0 +1,22 @@
+.header {
+    position: absolute;
+    height: 4rem;
+    padding: 1rem 0;
+    width: 100%;
+}
+
+.addTab {
+    position: absolute;
+    top: 2rem;
+    right: 0;
+    padding: 0 2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    width: 3rem;
+    height: 3rem;
+    cursor: pointer;
+}
+
+.addTab:active {
+    transform: scale(1.2);
+}

@@ -1,0 +1,17 @@
+.sorting__form {
+    margin: 0;
+    position: absolute;
+    font-size: 1.3rem;
+    left: 2rem;
+    top: 3rem;
+    width: 7rem;
+    height: 3rem;
+}
+
+.sorting__select {
+    width: 100%;
+    background-color: white;
+    font-size: 1.2rem;
+    font-family: 'Saira Extra Condensed', sans-serif;
+
+}

@@ -1,0 +1,12 @@
+.tab {
+    margin: 0 0rem;
+    flex-shrink: 1;
+    flex-grow: 1;
+    font-size: 1.5rem;
+}
+
+.tab:hover {
+    text-decoration: underline;
+    color: red;
+    cursor: pointer;
+}

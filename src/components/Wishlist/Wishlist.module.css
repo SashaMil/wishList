@@ -1,0 +1,26 @@
+.list_body {
+    margin: 0 1rem;
+}
+
+.list {
+    height: 100vh;
+    position: absolute;
+    top: 5rem;
+    left:0;
+    right:0;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+.addItem {
+    display: block;
+    width: 3rem;
+    margin-top: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    cursor: pointer;
+}
+
+.addItem:active {
+    transform: scale(1.2);
+}
