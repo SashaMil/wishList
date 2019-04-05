@@ -11,6 +11,7 @@ let config = {};
 if (process.env.DATABASE_URL) {
     // Heroku gives a url, not a connection object
     // https://github.com/brianc/node-pg-pool
+    console.log(process.env.DATABASE_URL);
     const params = url.parse(process.env.DATABASE_URL);
     const auth = params.auth.split(':');
 
@@ -19,7 +20,7 @@ if (process.env.DATABASE_URL) {
         password: auth[1],
         host: params.hostname,
         port: params.port,
-        database: params.pathname.splice('/')[1],
+        database: 'postgresql-fitted-13054',
         ssl: true, // heroke requires ssl to be true
         max: 10, // max number of clients in the pool
         idleTimeutMillis: 30000, //How long a client is allowed to remain idlbe before being closed
