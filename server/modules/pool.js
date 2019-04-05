@@ -22,7 +22,7 @@ if (process.env.DATABASE_URL) {
         password: auth[1],
         host: params.hostname,
         port: params.port,
-        database: params.pathname.splice('/')[1],
+        database: params.pathname.split('/')[1],
         ssl: true, // heroke requires ssl to be true
         max: 10, // max number of clients in the pool
         idleTimeutMillis: 30000, //How long a client is allowed to remain idlbe before being closed
