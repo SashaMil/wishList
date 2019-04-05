@@ -15,7 +15,7 @@ if (process.env.DATABASE_URL) {
     const params = url.parse(process.env.DATABASE_URL);
     console.log('zozozozoz', params);
     const auth = params.auth.split(':');
-    console.log('dinosaur', params.pathname.splice('/')[1]);
+    console.log('dinosaur', params.pathname);
 
     config = {
         user: auth[0],
