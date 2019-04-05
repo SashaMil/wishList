@@ -1,0 +1,18 @@
+.menu {
+    position: absolute;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    top: 5rem;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+    height: 80vh;
+    text-align: center;
+    background-color: 	#FFFAFA;
+    border: 3px solid #000;
+}
+
+.username {
+    font-size: 2rem;
+}

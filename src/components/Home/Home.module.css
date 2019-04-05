@@ -20,3 +20,15 @@
 .addTab:active {
     transform: scale(1.2);
 }
+
+.menu {
+    width: 2.5rem;
+    position: absolute;
+    left: 1rem;
+    top: 2rem;
+    cursor: pointer;
+}
+
+.menu:active {
+    transform: scale(1.2);
+}

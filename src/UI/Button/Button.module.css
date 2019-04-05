@@ -73,3 +73,13 @@
     text-decoration: underline;
     color: red;
 }
+
+.logout {
+    position: relative;
+    width: 33.33%;
+    height: 10%;
+    cursor: pointer;
+    background-color: white;
+    color: black;
+    font-size: .9rem;
+}

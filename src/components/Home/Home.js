@@ -5,6 +5,7 @@ import Tabs from '../../components/Tabs/Tabs';
 import Total from '../../components/Total/Total';
 import TabCreator from '../../containers/TabCreator/TabCreator';
 import TabEditor from '../../components/TabEditor/TabEditor';
+import Menu from '../../components/Menu/Menu';
 import Button from '../../UI/Button/Button';
 
 class Home extends Component {
@@ -15,12 +16,14 @@ class Home extends Component {
         currentTabTotal: 0,
         showTabCreator: false,
         showItemCreator: false,
+        showMenu: false,
         currentTabId: null,
         currentTabTitle: '',
         showRegister: true,
         userId: null,
         itemToEdit: '',
         showTabEditor: false,
+        username: null,
     };
 
 
@@ -31,6 +34,9 @@ class Home extends Component {
     getWishlists( type ) {
         axios.get('users')
             .then((response) => {
+                this.setState({
+                    username: response.data.username,
+                })
                 axios.get(`wishlists/${response.data.id}`)
                     .then((response) => {
                         if (response.data.length === 0) {
@@ -220,6 +226,12 @@ class Home extends Component {
         this.toggleTabCreator();
     }
 
+    toggleMenu = () => {
+        this.setState(prevState => ({
+            showMenu: !prevState.showMenu,
+        }));
+    };
+
     toggleItemCreator( item ) {
         if (item) {
             this.setState(prevState => ({
@@ -257,6 +269,16 @@ class Home extends Component {
     render() {
         return (
             <div className={styles.header}>
+                <img className={styles.menu} onClick={this.toggleMenu} src="/icons/menu.png"></img>
+                {this.state.showMenu ? (
+                    <Menu
+                        grandTotal={this.state.grandTotal}
+                        toggleMenu={this.toggleMenu}
+                        username={this.state.username}
+                        logout={this.logout}
+                    />
+                ) : null}
+
                 <Tabs
                     wishlists={this.state.wishlists}
                     selectTab={this.selectTab.bind(this)}
@@ -289,11 +311,6 @@ class Home extends Component {
                     />
                 ) : null}
                 <img className={styles.addTab} onClick={this.toggleTabCreator.bind(this)} src="/icons/add.png"></img>
-                <Button
-                    className={"Logout"}
-                    name={"Logout"}
-                    click={this.logout}
-                />
             </div>
         );
     };
