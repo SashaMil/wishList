@@ -21,6 +21,7 @@ const Tab = ( props ) => (
                 addItem={props.addItem}
                 deleteItem={props.deleteItem}
                 editItem={props.editItem}
+                currentTabTotal={props.currentTabTotal}
             />
         ) : null}
     </Aux>

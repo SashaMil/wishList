@@ -18,6 +18,7 @@ const Tabs = ( props ) => (
                 editItem={props.editItem}
                 deleteItem={props.deleteItem}
                 toggleTabEditor={props.toggleTabEditor}
+                currentTabTotal={props.currentTabTotal}
             />
         ))}
     </div>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import styles from './Home.module.css';
 import Tabs from '../../components/Tabs/Tabs';
-import GrandTotal from '../../components/GrandTotal/GrandTotal';
+import Total from '../../components/Total/Total';
 import TabCreator from '../../containers/TabCreator/TabCreator';
 import TabEditor from '../../components/TabEditor/TabEditor';
 
@@ -10,6 +10,7 @@ class Home extends Component {
 
     state = {
         wishlists: [],
+        grandTotal: 0,
         currentTabTotal: 0,
         showTabCreator: false,
         showItemCreator: false,
@@ -32,15 +33,26 @@ class Home extends Component {
                 axios.get(`wishlists/${response.data.id}`)
                     .then((response) => {
                         let newWishlists = [];
-                        for (let wishlist of response.data) {
-                            axios.get(`wishlists/items/${wishlist.wishlist_id}`)
+                        let wishlists = response.data;
+                        for (let x = 0; x < wishlists.length; x++) {
+                            axios.get(`wishlists/items/${wishlists[x].wishlist_id}`)
                                 .then((response) => {
-                                    wishlist.list = response.data;
-                                    newWishlists.push(wishlist);
-                                    this.setState({
-                                        wishlists: newWishlists,
-                                    })
-                                }, this.calculateListTotal)
+                                    wishlists[x].list = response.data;
+                                    newWishlists.push(wishlists[x]);
+                                    if (newWishlists.length === wishlists.length) {
+                                        if (!this.state.currentTabId) {
+                                            this.setState({
+                                                currentTabId: newWishlists[0].wishlist_id,
+                                            });
+                                        }
+                                        let totals = this.calculateTotals( this.state.currentTabId, newWishlists );
+                                        this.setState({
+                                            wishlists: newWishlists,
+                                            currentTabTotal: totals.currentTabTotal,
+                                            grandTotal: totals.grandTotal,
+                                        });
+                                    }
+                                })
                         }
                     })
                     .catch((error) => {
@@ -59,24 +71,27 @@ class Home extends Component {
         }));
     };
 
-    calculateListTotal = ( tabId ) => {
-        console.log(this.state)
+    calculateTotals = ( tabId, wishlists ) => {
         let total = 0;
-        let wishlist = this.state.wishlists.find(function(wishlist) {
+        let currentWishlist = wishlists.find(function(wishlist) {
             return wishlist.wishlist_id === tabId;
-        })
-        wishlist.list.map(item => {
+        });
+        currentWishlist.list.map(item => {
             total += item.price;
         });
-        this.setState({
-            currentTabTotal: total,
+        let grandTotal = 0;
+        wishlists.map(wishlist => {
+            for (let item of wishlist.list) {
+                grandTotal += item.price;
+            }
         })
+        return {currentTabTotal: total, grandTotal: grandTotal};
     };
 
     selectTab = ( tabId ) => {
-        this.calculateListTotal(tabId)
         this.setState({
             currentTabId: tabId,
+            currentTabTotal: this.calculateTotals(tabId, this.state.wishlists).currentTabTotal,
         });
     };
 
@@ -207,11 +222,6 @@ class Home extends Component {
     render() {
         return (
             <div className={styles.header}>
-                {this.state.currentTabId ? (
-                    <GrandTotal
-                        grandTotal={this.state.currentTabTotal}
-                    />
-                ) : null}
                 <Tabs
                     wishlists={this.state.wishlists}
                     selectTab={this.selectTab.bind(this)}
@@ -223,6 +233,7 @@ class Home extends Component {
                     editItem={this.editItem}
                     deleteItem={this.deleteItem}
                     addItem={this.addItem}
+                    currentTabTotal={this.state.currentTabTotal}
                 />
                 {this.state.showTabCreator ? (
                     <TabCreator

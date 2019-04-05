@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import styles from './Wishlist.module.css';
 import ListTitle from '../ListTitle/ListTitle';
+import Total from '../Total/Total';
 import ListItem from '../ListItem/ListItem';
 import Select from '../Select/Select';
 import ItemCreator from '../../containers/ItemCreator/ItemCreator';
@@ -21,7 +22,6 @@ class Wishlist extends Component {
 
     componentDidUpdate(prevProps) {
         if (this.props.list !== prevProps.list) {
-            console.log('look here')
             this.setState({
                 list: this.props.list,
             }, this.sortList)
@@ -87,6 +87,10 @@ class Wishlist extends Component {
                 <ListTitle
                    listTitle={this.props.listTitle}
                    toggleTabEditor={this.props.toggleTabEditor}
+                />
+                <Total
+                    total={this.props.currentTabTotal}
+                    className={"currentTabTotal"}
                 />
                 <div className={styles.list_body}>
                     {this.state.list.map((item, index) => (

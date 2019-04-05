@@ -1,0 +1,24 @@
+.currentTabTotal {
+    position: absolute;
+    top: 3rem;
+    right: 5rem;
+    padding: 0 2rem;
+    font-weight: bold;
+    font-size: 2rem;
+    width: 2rem;
+}
+
+.grandTotal {
+    position: absolute;
+    top: 2rem;
+    left: 0rem;
+    padding: 0 2rem;
+    font-weight: bold;
+    font-size: 1.8rem;
+    width: 2rem;
+}
+
+.grandTotalText {
+    font-weight: normal;
+    font-size: 1.5rem;
+}
