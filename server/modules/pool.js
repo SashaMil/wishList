@@ -13,6 +13,7 @@ if (process.env.DATABASE_URL) {
     // https://github.com/brianc/node-pg-pool
     console.log('yeoeoeoe', process.env.DATABASE_URL);
     const params = url.parse(process.env.DATABASE_URL);
+    console.log('zozozozoz', params);
     const auth = params.auth.split(':');
 
     config = {
