@@ -27,7 +27,7 @@ class Home extends Component {
         this.getWishlists();
     };
 
-    getWishlists( userId ) {
+    getWishlists( type ) {
         axios.get('users')
             .then((response) => {
                 axios.get(`wishlists/${response.data.id}`)
@@ -52,6 +52,12 @@ class Home extends Component {
                                                 });
                                             }
                                             let totals = this.calculateTotals( this.state.currentTabId, newWishlists );
+                                            newWishlists = newWishlists.sort((a,b) => (a.wishlist_id - b.wishlist_id));
+                                            if (type == 'add') {
+                                                this.setState({
+                                                    currentTabId: newWishlists[newWishlists.length - 1].wishlist_id,
+                                                })
+                                            }
                                             this.setState({
                                                 wishlists: newWishlists,
                                                 currentTabTotal: totals.currentTabTotal,
@@ -110,7 +116,7 @@ class Home extends Component {
                 const userId = response.data.id;
                 axios.post(`wishlists/${userId}`, { wishlistTitle })
                     .then((response) => {
-                        this.getWishlists();
+                        this.getWishlists( 'add' );
                         this.setState({
                             currentTabId: null,
                             currentTabTitle: null,

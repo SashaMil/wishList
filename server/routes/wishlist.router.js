@@ -35,6 +35,7 @@ router.post('/:id', (req, res) => {
     const queryText = `insert into wishlist (person_id, title) values ($1, $2);`;
     pool.query( queryText, [req.params.id, req.body.wishlistTitle])
         .then((result) => {
+            console.log(result);
             console.log('Successfully posted new wishlist');
             res.sendStatus(201);
         })
