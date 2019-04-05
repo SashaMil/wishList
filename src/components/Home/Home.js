@@ -32,28 +32,36 @@ class Home extends Component {
             .then((response) => {
                 axios.get(`wishlists/${response.data.id}`)
                     .then((response) => {
-                        let newWishlists = [];
-                        let wishlists = response.data;
-                        for (let x = 0; x < wishlists.length; x++) {
-                            axios.get(`wishlists/items/${wishlists[x].wishlist_id}`)
-                                .then((response) => {
-                                    wishlists[x].list = response.data;
-                                    newWishlists.push(wishlists[x]);
-                                    if (newWishlists.length === wishlists.length) {
-                                        if (!this.state.currentTabId) {
+                        if (response.data.length === 0) {
+                            this.setState({
+                                showTabCreator: true,
+                            })
+                        }
+                        else {
+                            let newWishlists = [];
+                            let wishlists = response.data;
+                            for (let x = 0; x < wishlists.length; x++) {
+                                axios.get(`wishlists/items/${wishlists[x].wishlist_id}`)
+                                    .then((response) => {
+                                        wishlists[x].list = response.data;
+                                        newWishlists.push(wishlists[x]);
+                                        if (newWishlists.length === wishlists.length) {
+                                            if (!this.state.currentTabId) {
+                                                this.setState({
+                                                    currentTabId: newWishlists[0].wishlist_id,
+                                                });
+                                            }
+                                            let totals = this.calculateTotals( this.state.currentTabId, newWishlists );
                                             this.setState({
-                                                currentTabId: newWishlists[0].wishlist_id,
+                                                wishlists: newWishlists,
+                                                currentTabTotal: totals.currentTabTotal,
+                                                grandTotal: totals.grandTotal,
                                             });
                                         }
-                                        let totals = this.calculateTotals( this.state.currentTabId, newWishlists );
-                                        this.setState({
-                                            wishlists: newWishlists,
-                                            currentTabTotal: totals.currentTabTotal,
-                                            grandTotal: totals.grandTotal,
-                                        });
-                                    }
-                                })
+                                    })
+                            }
                         }
+
                     })
                     .catch((error) => {
                         console.log(error);
