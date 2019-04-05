@@ -5,6 +5,7 @@ import Tabs from '../../components/Tabs/Tabs';
 import Total from '../../components/Total/Total';
 import TabCreator from '../../containers/TabCreator/TabCreator';
 import TabEditor from '../../components/TabEditor/TabEditor';
+import Button from '../../UI/Button/Button';
 
 class Home extends Component {
 
@@ -76,6 +77,26 @@ class Home extends Component {
             })
             .catch((error) => {
                 this.props.history.push('/login');
+            });
+    }
+
+    logout = () => {
+        axios.get('/users/logout')
+            .then((response) => {
+                if (response.status === 200) {
+                    console.log("Success");
+                    this.props.history.push('/login');
+                }
+                else {
+                    this.setState({
+                        message: 'Incorrect Username or Password'
+                    });
+                }
+            })
+            .catch(() => {
+                this.setState({
+                    message: 'Ooops! Something went wrong! Is the server running?',
+                });
             });
     }
 
@@ -268,6 +289,11 @@ class Home extends Component {
                     />
                 ) : null}
                 <img className={styles.addTab} onClick={this.toggleTabCreator.bind(this)} src="/icons/add.png"></img>
+                <Button
+                    className={"Logout"}
+                    name={"Logout"}
+                    click={this.logout}
+                />
             </div>
         );
     };
